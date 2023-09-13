@@ -133,7 +133,7 @@ The list of currently stored trials can be obtained by:
 ```python
 resume_trials()
 ```
-<!-- ![backward_deps function](./images/resume_trials.png) -->
+![backward_deps function](./images/resume_trials.png)
 
 
 ## Experiment comparision
@@ -144,7 +144,7 @@ Suppose now that we have run a second trial with a different set of parameters. 
 ```python   
 trial_intersection_diff(list_id[0], list_id[-1])
 ```
-<!-- ![backward_deps function](./images/trial_intersect_diff.png) -->
+![backward_deps function](./images/trial_intersect_diff.png)
 
 In the previous output, you'll notice that 'pca_components' has been modified from 3 to 5, and the 'test_dim' size has increased from 0.2 to 0.3. However, please be aware that the vectors, matrices and complex types like 'y_test' and 'y_pred,' are currently not available for inspection. We acknowledge this limitation and addressing it in our backlog.
 
@@ -153,7 +153,7 @@ When running trial_diff(), the function displays the values of variables and fun
 ``` python
 trial_diff(list_id[0], list_id[-1])
 ```
-<!-- ![backward_deps function](./images/trial_diff.png) -->
+![backward_deps function](./images/trial_diff.png)
 
 In this case, we can easily spot the differences in the 'pca_components' and 'test_dim' provenance and differences in their results. 
 
@@ -166,14 +166,15 @@ In the current implementation of noWorkflow, any tagged variable can be inspecte
 ```python
 var_tag_plot('roc_metric')
 ```
-<!-- ![backward_deps function](./images/var_tag_plot_roc.png) -->
+![backward_deps function](./images/var_tag_plot_roc.png)
+
 in this case, we can see that the best roc_metric was achieved in the experiment trial nicknamed 826c2. 
 
 In the same maner, we can examine the f1_metric, that confirms the best performance was achieved in the trial 826c2.
 ```python
 var_tag_plot('f1_metric')
 ```
-<!-- ![backward_deps function](./images/var_tag_plot_f1.png) -->
+![backward_deps function](./images/var_tag_plot_f1.png)
 
 in this case, we can see that the best roc_metric was achieved in the experiment trial nicknamed 826c2. 
 
@@ -182,12 +183,12 @@ Another feature is a general purpose  plot, that can be used to inspect any tagg
 ```python
 var_tag_values('f1_metric')
 ```
-<!-- ![backward_deps function](./images/tag_values_f1.png) -->
+![backward_deps function](./images/tag_values_f1.png)
 
 ```python
 var_tag_values('model')
 ```
-<!-- ![backward_deps function](./images/tag_values_model.png) -->
+![backward_deps function](./images/tag_values_model.png)
 
 ### Cleaninig notebooks
 
