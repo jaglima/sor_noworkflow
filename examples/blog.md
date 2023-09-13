@@ -117,7 +117,7 @@ we receive a list of variables that are utilized in the computation of the tagge
 ```python
 dict_ops = backward_deps('roc_metric', False)
 ```
-<!-- ![backward_deps function](./images/backward_deps.png) -->
+![backward_deps function](./images/backward_deps.png)
 
 the output is a Python dictionary format, with all the operations in order that they were executed. At the end of the list, we have the operation that generated the final value, a ROC value of 0.81.
 
