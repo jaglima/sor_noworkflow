@@ -133,7 +133,7 @@ The list of currently stored trials can be obtained by:
 ```python
 resume_trials()
 ```
-<img src="./images/resume_trials.png" alt="drawing" width=60%/>
+<img src="./images/resume_trials.png" alt="drawing" width=40%/>
 
 
 ## Experiment comparision
@@ -154,7 +154,7 @@ When running trial_diff(), the function displays the values of variables and fun
 trial_diff(list_id[0], list_id[-1])
 ```
 
-<img src="./images/trial_diff.png" alt="drawing" width=60%/>
+<img src="./images/trial_diff.png" alt="drawing" width=80%/>
 
 In this case, we can easily spot the differences in the 'pca_components' and 'test_dim' provenance and differences in their results. 
 
@@ -167,7 +167,7 @@ In the current implementation of noWorkflow, any tagged variable can be inspecte
 ```python
 var_tag_plot('roc_metric')
 ```
-<img src="./images/var_tag_plot_roc.png" alt="drawing" width=70%/>
+<img src="./images/var_tag_plot_roc.png" alt="drawing" width=40%/>
 
 in this case, we can see that the best roc_metric was achieved in the experiment trial nicknamed 826c2. 
 
@@ -176,7 +176,7 @@ In the same maner, we can examine the f1_metric, that confirms the best performa
 var_tag_plot('f1_metric')
 ```
 
-<img src="./images/var_tag_plot_f1.png" alt="drawing" width=70%/>
+<img src="./images/var_tag_plot_f1.png" alt="drawing" width=40%/>
 
 in this case, we can see that the best roc_metric was achieved in the experiment trial nicknamed 826c2. 
 
@@ -186,7 +186,7 @@ Another feature is a general purpose  plot, that can be used to inspect any tagg
 var_tag_values('f1_metric')
 ```
 
-<img src="./images/tag_values_f1.png" alt="drawing" width=70%/>
+<img src="./images/tag_values_f1.png" alt="drawing" width=50%/>
 
 ```python
 var_tag_values('model')
