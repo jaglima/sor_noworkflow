@@ -1,20 +1,16 @@
 # Provenance of Machine Learning experiments with noWorkflow
 
-In many teams doing Data Science and Machine Learning at the academy and industry, we frequently find ourselves starting experiments with minimal structure, basic setups, and a multitude of hypotheses. This initial stage is all about exploration, where our primary goal is to validate if our hypothesis holds on.
+In many academic and industrial teams involved in Data Science and Machine Learning, we frequently find ourselves starting experiments with minimal structure, basic setups, and a multitude of hypotheses. This initial stage is all about exploration, where our primary goal is to validate if our hypotheses hold.
 
-However, as these experiments progress, they quickly grow in complexity and its management becomes a nightmare. Reproducing a specific trial with its unique setup becomes cumbersome, and juggling multiple trials can seem next to impossible.
+However, as these experiments progress, they quickly grow in complexity, and managing them becomes challenging. Reproducing a specific trial with its unique setup becomes cumbersome, and handling multiple trials can seem nearly impossible.
 
-In this blog post, we introduce you to the noWorkflow package, with exciting features born out of the Summer of Reproducibility project in 2023. We'll illustrate its capabilities with a practical use case, shedding light on how it can streamline your workflow.
+In this blog post, we introduce you to the [noWorkflow](https://github.com/gems-uff/noworkflow) package, with exciting features born out of the [Summer of Reproducibility](https://ucsc-ospo.github.io/osre/) project in 2023. We'll demostrate its capabilities with a practical use case, highlighting on how it can streamline your workflow.
 
-You can find the code on our GitHUb repository.
+You can find the code of this tutorial on our [GitHUb repository](https://ucsc-ospo.github.io/osre/).
 
 ## noWorkflow
 
-According with the noWorkflow developers team:
-
-```The noWorkflow package project aims at allowing scientists to benefit from provenance data analysis even when they don't use a workflow system...```
-
-At the start, noWorkflow looked like a very interesting tool to add to an analytics stack. Neat speaking, noWorkflow provides:
+According with the noWorkflow developers team, the primary goal of noWorkflow is to _"...allow scientists to benefit from provenance data analysis even when they don't use a workflow system."_. Unlike other tools, _"noWorkflow captures provenance from Python scripts without need a version control system or any other enviroment"_. Its particularly interesting when we are in the scenario described above, where we lack any structured system at begining of experiments. In fact, after going through the docs, we can verify that noWorkflow provides:
 
 * Command-line accessibility
 * Seamless integration with Jupyter Notebooks
@@ -30,13 +26,13 @@ On top of that, in the OSPO Summer of Reproducibiltiy Program, we added addition
 * A feature to display dependencies of tagged variables
 * Tools for comparing the history of a tagged variable between two trials
 * The option to retrieve the values of a tagged variable across all trials within an experiment
-* A bonus: Achieving all of this with minimal intrusive code added to your notebook
+* *A bonus*: Achieving all of this with minimal intrusive code added to your notebook
 
-To showcase how this features can take your experiment management to another level, we have chosen classical problema in Fraud Detection as a Machine Learning application to test the noWorkflow.
+To showcase how this features can take your experiment management to another level, we have chosen a classical problema in Fraud Detection as a Machine Learning application to test the noWorkflow.
 
-## Tutorial Setup
+## Noworkflow Setup
 
-To perform this tutorial, we highly recommend setting up a Conda environment on your system, which involves installing the noWorkflow package and Jupyter Lab. To reproduce the available experimental Notebooks, you can clone this repository as well. Take advantage of the requirements.txt file to accelerate your setup with pip tools.
+To perform this tutorial, we highly recommend setting up a Conda environment on your system, which involves installing the noWorkflow package and Jupyter Lab. To reproduce the experimental Notebooks, you can clone this repository as well. Take advantage of the _requirements.txt_ file to accelerate your setup with pip tools.
 
 To create a new Conda environment, run the following commands:
 
@@ -59,20 +55,20 @@ jupyter nbextension enable noworkflow --py --sys-prefix
 now kernel
 ```
 
-Then, clone our usecase tutorial in your local machine:
+Next, clone our use case tutorial to your local machine:
 
 ```bash
 git clone https://github.com/jaglima/noworkflow_usecase.git
 
 ```
 
-In the noworkflow_usecase directory, you will find the dataset directory and five Notebooks. [Notebook 1](now_usecase_part_1.ipynb) and [Notebook 2](now_usecase_part_2.ipynb) are two different trials of a Fraud Detection experiment. [Notebook 3](now_usecase_part_3.ipynb) wraps up a comparision between trials 1 and 2. [Notebook 4](now_usecase_part_4.ipynb) is another trial in a different approach. [Notebook 5](now_usecase_part_5.ipynb) is comparision between trials 1 and 4.
+In the noworkflow_usecase directory, you will find the dataset directory and five Notebooks. [Notebook 1](now_usecase_part_1.ipynb) and [Notebook 2](now_usecase_part_2.ipynb) represent two distinct trials of a Fraud Detection experiment we will go through next sessions. [Notebook 3](now_usecase_part_3.ipynb) wraps up a comparision between trials 1 and 2. [Notebook 4](now_usecase_part_4.ipynb) presents another trial using a different approach. [Notebook 5](now_usecase_part_5.ipynb) offers a comparision between trials 1 and 4.
 
 ## Fraud Detection use case
 
-Fraud detection is a typical use case…
+Fraud detection is a typical use case that encompasses classical challenges in ML projects. It often involves dealing with imbalanced datasets, requiring various feature transformations, and follows the usual steps of Machine Learning projects. Here we based on this [work](https://link.springer.com/article/10.1186/s40537-023-00684-w) making use of [Kaggle Credit Card Fraud Detection Dataset](https://www.kaggle.com/mlg-ulb/creditcardfraud), initially published by Worldline and the Universit´e Libre de Bruxelles (ULB).
 
-in this setup, we select the noWorkflow kernel and run the following code:
+To get started with this tutorial, you'll need to select the noWorkflow kernel in the Jupyter Notebooks you have at hand and then execute the following code:
 
 ```python
 df = pd.read_csv('dataset/creditcard.csv', encoding='utf-8')
@@ -106,12 +102,12 @@ f1_metric = now_variable('f1_metric', f1_score(y_test, y_pred))
 print("Random Forest - ROC = %f, F1 = %f" % (roc_metric, f1_metric))
 ```
 
-After running this snippet, with our parameters rightly tagged, we have our first trial. Other trials can be generated by changing hyperparameters, feature transformations, models and metrics under the choice of researcher. 
+After running this snippet, with our parameters rightly tagged, we have our first trial. Aditional trials can be generated by changing hyperparameters, feature transformations, models and metrics under the choice of researcher. 
 
 ## NoWorkflow at the spotlight
 
 When calling the backward_deps('tagged_var_name'), 
-we receive a list of variables that are utilized in the computation of the tagged variable. In this instance, when you call it with the 'roc_metric' tag, the output will include all operations that were involved in the construction of its ultimate value.
+we receive a list of variables that are involved in the computation of the tagged variable. In this example, if you call it with the 'roc_metric' tag, the output will include all operations that were involved in the construction of its final value. Lets check how it goes:
 
 
 ```python
@@ -119,36 +115,37 @@ dict_ops = backward_deps('roc_metric', False)
 ```
 <img src="./images/backward_deps.png" alt="drawing" width=70%/>
 
-the output is a Python dictionary format, with all the operations in order that they were executed. At the end of the list, we have the operation that generated the final value, a ROC value of 0.81.
+the output is in Python dictionary format, with all the operations in the order they were executed. At the end of the list, you will find the assignment operation where the 'roc_metric' variable is assigned the value of 0.81.
 
-To preserve these outputs for future comparisons with additional trials, you can save it by calling:
+To preserve these outputs for future comparisons with additional trials, you can save them by invoking:
 
 ``` python
 trial_id = __noworkflow__.trial_id
 store_operations(trial_id, dict_ops)
 ```
 
-The list of currently stored trials can be obtained by:
+The list of currently stored trials can be obtained using:
 
 ```python
 resume_trials()
 ```
 <img src="./images/resume_trials.png" alt="drawing" width=40%/>
 
+It is presented as a list, where the trial IDs can be referenced by their index.
+
 
 ## Experiment comparision
 
-
-Suppose now that we have run a second trial with a different set of parameters. It is already done in the usecase notebook here. Neverthless, we encourage the reader to rerun the previous snippets tweaking some of hyperparameters to see the impact.  By doing so, we will be able to compare the outcomes of both trials using two trial_intersection_diff() and the trialdiff(). Lets see them.
+Suppose now that you've alreadyt executed a second trial with a different set of parameters. It is done in the usecase notebook [here](now_usecase_part_2.ipynb) and we encourage the reader to rerun the previous snippets tweaking some of hyperparameters to see the impact. By doing this, we can then compare the outcomes of both trials using the trial_intersection_diff() and trialdiff() functions. Let's explore these comparisons.
 
 ```python   
 trial_intersection_diff(list_id[0], list_id[-1])
 ```
 <img src="./images/trial_intersect_diff.png" alt="drawing" width=60%/>
 
-In the previous output, you'll notice that 'pca_components' has been modified from 3 to 5, and the 'test_dim' size has increased from 0.2 to 0.3. However, please be aware that the vectors, matrices and complex types like 'y_test' and 'y_pred,' are currently not available for inspection. We acknowledge this limitation and addressing it in our backlog.
+In the previous output, you may have noticed that 'pca_components' has been changed from 3 to 5, and the 'test_dim' size has increased from 0.2 to 0.3. However, please be aware that the vectors, matrices and complex types like 'y_test' and 'y_pred,' are not available for inspection. We acknowledge this limitation and it is on our backlog.
 
-When running trial_diff(), the function displays the values of variables and function calls in a diff file format, highlighting the sequence of operations performed. The objective is to identify any differences that occurred between the two trials.
+When running trial_diff(), the function displays the values of variables and function calls in a diff file format, emphasizing the sequence of operations performed. The purpose is to identify any discrepances that occurred between the two trials.
 
 ``` python
 trial_diff(list_id[0], list_id[-1])
@@ -156,31 +153,31 @@ trial_diff(list_id[0], list_id[-1])
 
 <img src="./images/trial_diff.png" alt="drawing" width=80%/>
 
-In this case, we can easily spot the differences in the 'pca_components' and 'test_dim' provenance and differences in their results. 
+In this case, we can easily spot the differences in the 'pca_components' and 'test_dim' provenance as well as differences in their results. 
 
 ## Tagged multi trials plots
 
-In a broader perspective, noWorkflow has implemented a multi trials displaying feature, where we can easily inspect the values of tags across multiple trials. This feature is particularly useful when assessing the control variables behavior among the different trials and is a first step in facilitating cross comparisions between fatures and results in multi-trial experiments.
+In a broader perspective, we implemented a multi-trials displaying feature, where we can easily inspect the values of tags across multiple trials. This feature is particularly useful when evaluation the behavior of control variables across various trials and serves as an initial step in facilitating cross comparisions between fatures and results in multi-trial experiments.
 
-In the current implementation of noWorkflow, any tagged variable can be inspected in a multi trials plot, just by calling:
+In the current implementation of noWorkflow, any tagged variable can be inspected in a multi trials plot, just by invoking:
 
 ```python
 var_tag_plot('roc_metric')
 ```
 <img src="./images/var_tag_plot_roc.png" alt="drawing" width=40%/>
 
-in this case, we can see that the best roc_metric was achieved in the experiment trial nicknamed 826c2. 
+in this instance, we can see that the best roc_metric was achieved in the experiment trial nicknamed 826c2. 
 
-In the same maner, we can examine the f1_metric, that confirms the best performance was achieved in the trial 826c2.
+Similarly, we can examine the f1_metric, which confirms that the best performance was indeed achieved in the trial 826c2.
 ```python
 var_tag_plot('f1_metric')
 ```
 
 <img src="./images/var_tag_plot_f1.png" alt="drawing" width=40%/>
 
-in this case, we can see that the best roc_metric was achieved in the experiment trial nicknamed 826c2. 
+## Multi trial outputs
 
-Another feature is a general purpose  plot, that can be used to inspect any tagged variable. The user can also retrive a pandas DataFrame with the values in order to make their own plots of further analysis. In this case, the trial_id, a nickname, the tag name and value are returned:
+Another feature is the general purpose  plot, that can be used to inspect any tagged variable. The user can also retrive a pandas DataFrame containing the values, allowing them to create their own plots or perform further analysis. In this case, a the values are returned as in the example:
 
 ```python
 var_tag_values('f1_metric')
@@ -200,13 +197,14 @@ var_tag_values('model')
 Another very interesting feature of noWorkflow is the ability to clean notebooks. This feature is very useful when you are working with different experiments in a single notebook. Recurring to the command line, a researcher can obtain a notebook cleaned of any cells that doesn't relates with a specific cell. The way of doing it in command line is:
 
 ```python
-now clean 9 -i bla.ipynb final.ipynb
+now clean -n 9 -i my_notebook.ipynb -o final.ipynb
 ```
-Where 9 is the number of cell that contains the target value that we want to keep...
+Where 9 is the number of cell that contains the target value that we want to keep. Again, we encourage the user to try this feature after perform a serie of cell operations and see the final result.
 
 ### Final words
 
-In this short tutorial, we have seen how to use the noWorkflow to improve the management of experiments in DS and ML in its early stages. 
+In this brief tutorial, we have demonstrated how to use noWorkflow to enhance the management of experiments in DS and ML during their initial stages. These features are the foundation for exploring the advantages that noWorkflow offers as a provenance collection tool in the field of data analytics.
 
-We would like to thanks the  OSPO Summer of Reproducibility organization and the noWorkflow core team for this opportunity in contribute with the Open Source community. We encourage the reader to give noWorkflow a try and become an active contributor to the growing community. Your feedback and experiences will not only improve the tool but also contribute to a more transparent and collaborative future in tech. Together, we can make strides toward achieving greater reproducibility and innovation in our work. 
-Thank you for joining us on this journey, and we look forward to your valuable contributions.
+We would like to express our gratitude to the OSPO Summer of Reproducibility organization and the noWorkflow core team for providing us with this opportunity to contribute to the Open Source community. We invite readers to give noWorkflow a try and share their feedback and experiences. Together, we can take steps towards achieving greater reproducibility and innovation in our work.
+
+Thank you for embarking on this journey with us, and we eagerly anticipate your valuable contributions.
